@@ -31,7 +31,7 @@ export default function () {
 }
 
 export const SLACK_TOKEN = `${__ENV.SLACK_TOKEN}`;
-export const action_url=  `${__ENV.GITHUB_SERVER_URL}/${__ENV.GITHUB_REPOSITORY}/actions/runs/${__ENV.GITHUB_RUN_ID}`; 
+export const action_url=  `${__ENV.GITHUB_SERVER_URL}/${__ENV.GITHUB_REPOSITORY}/runs/${__ENV.GITHUB_RUN_ID}?check_suite_focus=true`; 
 
 export function sendSlack(data){
     console.log(JSON.stringify(data));
