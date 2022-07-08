@@ -1,6 +1,17 @@
 name: K6 Extension Workflow
 on: 
   workflow_dispatch:
+  # For manual input when trigger the workflow
+    inputs:
+      target: 
+        description: 'Target'
+        required: true
+        default: '1'
+      
+      duration: 
+        description: 'Duration (in second)'
+        required: true
+        default: '10'
 
 jobs:
   k6_local_test:
@@ -9,6 +20,8 @@ jobs:
     container: docker://golang:1.17-alpine
     env:
           SLACK_TOKEN : ${{ secrets.SLACK_TOKEN }}
+          TARGET : ${{ github.event.inputs.target }}
+          DURATION : ${{ github.event.inputs.duration }}
 
     steps:
       - name: Checkout

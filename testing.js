@@ -13,9 +13,14 @@ export const requests = new Counter('http_reqs');
 // you can specify stages of your test (ramp up/down patterns) through the options object
 // target is the number of VUs you are aiming for
 
+export const SLACK_TOKEN = `${__ENV.SLACK_TOKEN}`;
+export const action_url=  `${__ENV.GITHUB_SERVER_URL}/${__ENV.GITHUB_REPOSITORY}/actions/runs/${__ENV.GITHUB_RUN_ID}`; 
+export const DURATION = `${__ENV.DURATION}`;
+export const TARGET = `${__ENV.TARGET}`;
+
 export const options = {
   stages: [
-    { target: 20, duration: '10s' }
+    { target: TARGET, duration: DURATION +'s' }
   ],
   
 };
@@ -30,8 +35,7 @@ export default function () {
  
 }
 
-export const SLACK_TOKEN = `${__ENV.SLACK_TOKEN}`;
-export const action_url=  `${__ENV.GITHUB_SERVER_URL}/${__ENV.GITHUB_REPOSITORY}/runs/${__ENV.GITHUB_RUN_ID}?check_suite_focus=true`; 
+
 
 export function sendSlack(data){
     console.log(JSON.stringify(data));
