@@ -31,7 +31,7 @@ export default function () {
 }
 
 export const SLACK_TOKEN = `${__ENV.SLACK_TOKEN}`;
-
+export const action_url=  `${__ENV.GITHUB_SERVER_URL}/${__ENV.GITHUB_REPOSITORY}/actions/runs/${__ENV.GITHUB_RUN_ID}`; 
 
 export function sendSlack(data){
     console.log(JSON.stringify(data));
@@ -131,7 +131,7 @@ export function sendSlack(data){
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": "<https://example.com|View Results>"
+                            "text": "<"+action_url+"|View Results on Github>"
                         },
                        
                     },
