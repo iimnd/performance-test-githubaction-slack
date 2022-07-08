@@ -14,11 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Install xk6
-        run: go install go.k6.io/xk6/cmd/xk6@latest
-
-      - name: Build xk6-counter binary
-        run: xk6 build --with github.com/mstoykov/xk6-counter@latest
-
-      - name: Run k6 extension test
-        run: ./k6 run testing.js
+      - name: Run local k6 test
+        uses: grafana/k6-action@v0.2.0
+        with:
+          filename: testing.js
