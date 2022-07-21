@@ -1,0 +1,42 @@
+name: testing
+on: 
+  workflow_dispatch:
+  # For manual input when trigger the workflow
+    inputs:
+      target: 
+        description: 'Target'
+        required: true
+        default: '1'
+      
+      duration: 
+        description: 'Duration (in second)'
+        required: true
+        default: '10'
+
+jobs:
+  k6_local_test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: [mantra-api, mantra-admin-api]
+        kind: [api-nightly, cron-nightly, api-agent-nightly]
+        exclude:
+         - image: mantra-admin-api
+           kind: cron-nightly
+         - image: mantra-admin-api
+           kind: api-agent-nightly
+    name: image ${{ matrix.image}} - kind ${{ matrix.kind }}
+    container: docker://golang:1.17-alpine
+    env:
+          SLACK_TOKEN : ${{ secrets.SLACK_TOKEN }}
+          TARGET : ${{ github.event.inputs.target }}
+          DURATION : ${{ github.event.inputs.duration }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Build all container images
+        run: |
+           echo ${{ matrix.image}} && echo " - " && echo ${{ matrix.kind }}
