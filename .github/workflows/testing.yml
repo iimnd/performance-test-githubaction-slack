@@ -39,4 +39,4 @@ jobs:
 
       - name: Build all container images
         run: |
-           echo ${{ matrix.image}} && echo " - " && echo ${{ matrix.kind }}
+           echo ${{ matrix.image}} 
